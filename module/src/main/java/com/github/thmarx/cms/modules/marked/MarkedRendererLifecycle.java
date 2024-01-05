@@ -21,6 +21,7 @@ package com.github.thmarx.cms.modules.marked;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
+import com.github.thmarx.cms.api.module.CMSModuleContext;
 import com.github.thmarx.modules.api.ModuleLifeCycleExtension;
 import com.github.thmarx.modules.api.annotation.Extension;
 import lombok.extern.slf4j.Slf4j;

@@ -24,6 +24,7 @@ package com.github.thmarx.cms.modules.marked;
 import com.github.thmarx.cms.api.feature.features.IsPreviewFeature;
 import com.github.thmarx.cms.api.feature.features.SitePropertiesFeature;
 import com.github.thmarx.cms.api.markdown.MarkdownRenderer;
+import com.github.thmarx.cms.api.module.CMSModuleContext;
 import com.github.thmarx.cms.api.request.ThreadLocalRequestContext;
 import io.github.gitbucket.markedj.Marked;
 import io.github.gitbucket.markedj.Options;
@@ -38,8 +39,8 @@ import org.jsoup.Jsoup;
 @Slf4j
 public class MarkedMarkdownRenderer implements MarkdownRenderer {
 
-
 	public MarkedMarkdownRenderer() {
+		
 	}
 
 	@Override

@@ -24,6 +24,7 @@ package com.github.thmarx.cms.modules.marked;
 import com.github.thmarx.cms.api.SiteProperties;
 import com.github.thmarx.cms.api.feature.features.IsPreviewFeature;
 import com.github.thmarx.cms.api.feature.features.SitePropertiesFeature;
+import com.github.thmarx.cms.api.module.CMSModuleContext;
 import com.github.thmarx.cms.api.request.RequestContext;
 import com.github.thmarx.cms.api.request.ThreadLocalRequestContext;
 import java.util.Map;
@@ -42,6 +43,9 @@ public class MarkedMarkdownRendererTest {
 
 	@BeforeAll
 	public static void setup() {
+		var context = new CMSModuleContext();
+		context.add(SitePropertiesFeature.class, 		
+				new SitePropertiesFeature(new SiteProperties(Map.of("context_path", "/de"))));
 		sut = new MarkedMarkdownRenderer();
 	}
 
