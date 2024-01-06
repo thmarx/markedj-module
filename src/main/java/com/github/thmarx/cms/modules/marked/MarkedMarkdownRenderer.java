@@ -21,6 +21,7 @@ package com.github.thmarx.cms.modules.marked;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
+import com.github.slugify.Slugify;
 import com.github.thmarx.cms.api.feature.features.IsPreviewFeature;
 import com.github.thmarx.cms.api.feature.features.SitePropertiesFeature;
 import com.github.thmarx.cms.api.markdown.MarkdownRenderer;
@@ -39,8 +40,10 @@ import org.jsoup.Jsoup;
 @Slf4j
 public class MarkedMarkdownRenderer implements MarkdownRenderer {
 
+	final Slugify slug = Slugify.builder().build();
+	
 	public MarkedMarkdownRenderer() {
-		
+
 	}
 
 	@Override
@@ -64,16 +67,16 @@ public class MarkedMarkdownRenderer implements MarkdownRenderer {
 		final Options options = new Options();
 		options.getSafelist().removeProtocols("img", "src", "http", "https");
 		options.getSafelist().removeProtocols("a", "href", "ftp", "http", "https", "mailto", "#");
-		
+
 		return Marked.marked(markdown, options, new Renderer(options) {
 			@Override
 			public String link(String href, String title, String text) {
-				
+
 				var requestContext = ThreadLocalRequestContext.REQUEST_CONTEXT.get();
-				
+
 				if (requestContext != null
 						&& !href.startsWith("http") && !href.startsWith("https")) {
-					
+
 					if (requestContext.has(SitePropertiesFeature.class)) {
 						var contextPath = requestContext.get(SitePropertiesFeature.class).siteProperties().contextPath();
 						if (!"/".equals(contextPath) && !href.startsWith(contextPath) && href.startsWith("/")) {
@@ -88,10 +91,18 @@ public class MarkedMarkdownRenderer implements MarkdownRenderer {
 						}
 					}
 				}
-				
-				return super.link(href, title, text);
+
+				String titleAttr = "";
+				if (title != null) {
+					titleAttr = " title=\"" + title + "\"";
+				}
+
+				return "<a href=\"%s\" id=\"%s\"  %s>%s</a>".formatted(
+						href, slug.slugify(text), 
+						titleAttr, text
+				);
 			}
-			
+
 		});
 	}
 

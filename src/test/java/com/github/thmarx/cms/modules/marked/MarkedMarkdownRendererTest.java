@@ -65,7 +65,7 @@ public class MarkedMarkdownRendererTest {
 	public void test_link() {
 		var result = sut.render("[Link text Here](https://link-url-here.org)");
 
-		Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"https://link-url-here.org\">Link text Here</a></p>");
+		Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"https://link-url-here.org\" id=\"link-text-here\">Link text Here</a></p>");
 	}
 
 	@Test
@@ -75,7 +75,7 @@ public class MarkedMarkdownRendererTest {
 		ThreadLocalRequestContext.REQUEST_CONTEXT.set(context);
 		try {
 			var result = sut.render("[Link text Here](/internal/url)");
-			Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"/internal/url?preview\">Link text Here</a></p>");
+			Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"/internal/url?preview\" id=\"link-text-here\">Link text Here</a></p>");
 		} finally {
 			ThreadLocalRequestContext.REQUEST_CONTEXT.remove();
 		}
@@ -88,7 +88,7 @@ public class MarkedMarkdownRendererTest {
 		ThreadLocalRequestContext.REQUEST_CONTEXT.set(context);
 		try {
 			var result = sut.render("[Link text Here](/internal/url?hello=world)");
-			Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"/internal/url?hello=world&amp;preview\">Link text Here</a></p>");
+			Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"/internal/url?hello=world&amp;preview\" id=\"link-text-here\">Link text Here</a></p>");
 		} finally {
 			ThreadLocalRequestContext.REQUEST_CONTEXT.remove();
 		}
@@ -101,10 +101,10 @@ public class MarkedMarkdownRendererTest {
 		ThreadLocalRequestContext.REQUEST_CONTEXT.set(context);
 		try {
 			var result = sut.render("[Link text Here](http://external.org/url?hello=world)");
-			Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"http://external.org/url?hello=world\">Link text Here</a></p>");
+			Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"http://external.org/url?hello=world\" id=\"link-text-here\">Link text Here</a></p>");
 
 			result = sut.render("[Link text Here](https://external.org/url?hello=world)");
-			Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"https://external.org/url?hello=world\">Link text Here</a></p>");
+			Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"https://external.org/url?hello=world\" id=\"link-text-here\">Link text Here</a></p>");
 		} finally {
 			ThreadLocalRequestContext.REQUEST_CONTEXT.remove();
 		}
@@ -125,7 +125,7 @@ public class MarkedMarkdownRendererTest {
 		ThreadLocalRequestContext.REQUEST_CONTEXT.set(context);
 		try {
 			var result = sut.render("[Link text Here](/internal/url)");
-			Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"/de/internal/url\">Link text Here</a></p>");
+			Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"/de/internal/url\" id=\"link-text-here\">Link text Here</a></p>");
 		} finally {
 			ThreadLocalRequestContext.REQUEST_CONTEXT.remove();
 		}
@@ -140,7 +140,7 @@ public class MarkedMarkdownRendererTest {
 		ThreadLocalRequestContext.REQUEST_CONTEXT.set(context);
 		try {
 			var result = sut.render("[Link text Here](/internal/url)");
-			Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"/de/internal/url?preview\">Link text Here</a></p>");
+			Assertions.assertThat(result).isEqualToIgnoringWhitespace("<p><a href=\"/de/internal/url?preview\" id=\"link-text-here\">Link text Here</a></p>");
 		} finally {
 			ThreadLocalRequestContext.REQUEST_CONTEXT.remove();
 		}
