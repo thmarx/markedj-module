@@ -22,6 +22,7 @@ package com.github.thmarx.cms.modules.marked;
  * #L%
  */
 import com.github.thmarx.cms.api.module.CMSModuleContext;
+import com.github.thmarx.cms.api.module.CMSRequestContext;
 import com.github.thmarx.modules.api.ModuleLifeCycleExtension;
 import com.github.thmarx.modules.api.annotation.Extension;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Extension(ModuleLifeCycleExtension.class)
 @Slf4j
-public class MarkedRendererLifecycle extends ModuleLifeCycleExtension {
+public class MarkedRendererLifecycle extends ModuleLifeCycleExtension<CMSModuleContext, CMSRequestContext> {
 
 	public static MarkedMarkdownRenderer RENDERER;
 
